@@ -156,11 +156,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\InvoiceAPIController.cs" />
-    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\SendMailAPIController.cs" />
-    <Compile Include="Controllers\SendMailController.cs" />
     <Compile Include="Controllers\SystemAPIController.cs" />
-    <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -219,21 +216,10 @@
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\Site.css" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Invoice\Invoice.cshtml" />
-    <Content Include="Views\Invoice\InvoiceLine.cshtml" />
-    <Content Include="Views\Invoice\InvoiceSetup.cshtml" />
-    <Content Include="Views\System\Index.cshtml" />
-    <Content Include="Views\System\UserGroup.cshtml" />
-    <Content Include="Views\System\Supplier.cshtml" />
-    <Content Include="Views\System\Customer.cshtml" />
-    <Content Include="Views\SendMail\SendMail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
