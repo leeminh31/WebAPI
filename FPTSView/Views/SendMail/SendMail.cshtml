@@ -89,21 +89,6 @@
             <th>Check List</th>
             </thead>
             <tbody>
-
-                @for (int i = 0; i < Model.ListEmails.Count; i++)
-                {
-                    <tr style="text-align:center">
-                        <td>@Html.DisplayTextFor(m => Model.ListEmails[i].InvoiceCode)</td>
-                        <td>@Html.DisplayTextFor(m => Model.ListEmails[i].Fullname)</td>
-                        <td>@Html.DisplayTextFor(m => Model.ListEmails[i].Email)</td>
-                        <td>@Html.DisplayTextFor(m => Model.ListEmails[i].CustomerAddress)</td>
-                        <td>@Html.DisplayTextFor(m => Model.ListEmails[i].ProductName)</td>
-                        <td>@Html.DisplayTextFor(m => Model.ListEmails[i].Quantity)</td>
-                        <td>@Html.DisplayTextFor(m => Model.ListEmails[i].Price)</td>
-                        <td>@Html.Hidden("emailvalue" + i, Model.ListEmails[i].Email)</td>
-                        <td>@Html.CheckBoxFor(m => Model.ListEmails[i].IsChecked)</td>
-                    </tr>
-                }
             </tbody>
         </table>
         <div class="col-md-offset-2 col-md-10">
@@ -111,6 +96,44 @@
         </div>
     }
 </div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:51061/api/SendMailAPI/GetEmail",
+            datatype: "json",
+            success: (res) => {
+                console.log(res)
+                for (let i = 0; i < res.length; i++) {
+                    $(".table tbody").append(
+                        `<tr>
+                            <td>${res[i].InvoiceCode}</td>
+                            <td>${res[i].CustomerAddress}</td>
+                            <td>${res[i].ProductName}</td>
+                            <td>${res[i].Quantity}</td>
+                            <td>${res[i].Price}</td>
+                            <td><input type= "checkbox" value = "${i}"/></td>
+                            <td>
+                                <span onclick="handleUpdate()">
+                                    <img style="width:18px; height:18px"
+                                         src="~/Content/images/edit.svg" title="Edit user" />
+                                </span>
+                                <span onclick="handleDelete()">
+                                    <img style="width:18px; height:18px; margin-left: 4%;"
+                                         src="~/Content/images/bin.svg" title="Delete user" />
+                                </span>
+                            </td>
+                        </tr>`
+                    )
+                }
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    })
+</script>
 <script>
     const isNull = (id) => {
         if (document.getElementById(id).value.trim() === "") {

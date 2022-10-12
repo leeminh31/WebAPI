@@ -87,32 +87,51 @@
             </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < Model.Rows.Count; i++)
-            {
-                <tr>
-                    <td>@Model.Rows[i][0]</td>
-                    <td>@Model.Rows[i][1]</td>
-                    <td>@Model.Rows[i][2]</td>
-                    <td>@Model.Rows[i][3]</td>
-                    <td>@Model.Rows[i][4]</td>
-                    <td>@Model.Rows[i][5]</td>
-                    <td>@Model.Rows[i][6]</td>
-                    <td>
-                        <span onclick="handleUpdate(@i)">
-                            <img style="width:18px; height:18px"
-                                 src="~/Content/images/edit.svg" title="Edit user" />
-                        </span>
-                        <span onclick="handleDelete(@i)">
-                            <img style="width:18px; height:18px; margin-left: 4%;"
-                                 src="~/Content/images/bin.svg" title="Delete user" />
-                        </span>
-                    </td>
-                </tr>
-            }
+           
         </tbody>
     </table>
     <div class="data-paginate"></div>
 </div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            crossDomain: true,
+            url: "http://localhost:51061/api/InvoiceAPI/GetInvoiceSetup",
+            datatype: "json",
+            success: (res) => {
+                console.log(res)
+                for (let i = 0; i < res.length; i++) {
+                    $(".table tbody").append(
+                        `<tr>
+                            <td>${res[i].ID}</td>
+                            <td>${res[i].TypeName}</td>
+                            <td>${res[i].Symbol}</td>
+                            <td>${res[i].StartDate}</td>
+                            <td>${res[i].CreateBy}</td>
+                            <td>${res[i].CreateOn}</td>
+                            <td>${res[i].InvoiceStatus}</td>
+                            <td>
+                                <span onclick="handleUpdate()">
+                                    <img style="width:18px; height:18px"
+                                         src="~/Content/images/edit.svg" title="Edit user" />
+                                </span>
+                                <span onclick="handleDelete()">
+                                    <img style="width:18px; height:18px; margin-left: 4%;"
+                                         src="~/Content/images/bin.svg" title="Delete user" />
+                                </span>
+                            </td>
+                        </tr>`
+                    )
+                }
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    })
+</script>
 <script>
     const isNull = (id) => {
         if (document.getElementById(id).value.trim() === "") {

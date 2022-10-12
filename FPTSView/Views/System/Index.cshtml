@@ -110,34 +110,51 @@
             </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < Model.Rows.Count; i++)
-            {
-                <tr>
-                    <td>@Model.Rows[i][0]</td>
-                    <td>@Model.Rows[i][1]</td>
-                    <td>@Model.Rows[i][2]</td>
-                    <td>@Model.Rows[i][3]</td>
-                    <td>@Model.Rows[i][4]</td>
-                    <td>@Model.Rows[i][5]</td>
-                    <td>@Model.Rows[i][6]</td>
-                    <td>@Model.Rows[i][7]</td>
-                    <td>@Model.Rows[i][8]</td>
-                    <td>
-                        <span onclick="handleUpdate(@i)">
-                            <img style="width:18px; height:18px"
-                                 src="~/Content/images/edit.svg" title="Edit user" />
-                        </span>
-                        <span onclick="handleDelete(@i)">
-                            <img style="width:18px; height:18px; margin-left: 4%;"
-                                 src="~/Content/images/bin.svg" title="Delete user" />
-                        </span>
-                    </td>
-                </tr>
-            }
         </tbody>
     </table>
     <div class="data-paginate"></div>
 </div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:51061/api/SystemAPI/GetUser",
+            datatype: "json",
+            success: (res) => {
+                console.log(res)
+                for (let i = 0; i < res.length; i++) {
+                    $(".table tbody").append(
+                        `<tr>
+                            <td>${res[i].Username}</td>
+                            <td>${res[i].Password}</td>
+                            <td>${res[i].CreateBy}</td>
+                            <td>${res[i].CreateOn}</td>
+                            <td>${res[i].ModifiedBy}</td>
+                            <td>${res[i].ModifiedOn}</td>
+                            <td>${res[i].Fullname}</td>
+                            <td>${res[i].Email}</td>
+                            <td>${res[i].UserStatus}</td>
+                            <td>
+                                <span onclick="handleUpdate()">
+                                    <img style="width:18px; height:18px"
+                                         src="~/Content/images/edit.svg" title="Edit user" />
+                                </span>
+                                <span onclick="handleDelete()">
+                                    <img style="width:18px; height:18px; margin-left: 4%;"
+                                         src="~/Content/images/bin.svg" title="Delete user" />
+                                </span>
+                            </td>
+                        </tr>`
+                    )
+                }
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    })
+</script>
 <script>
     const isNull = (id) => {
         if (document.getElementById(id).value.trim() === "") {
@@ -236,7 +253,7 @@
 
     const Update = () => {
         const x = document.getElementById("btn-update");
-        if (isNull("txtUsername") || isNull("txtPassword") || isNull("txtCreateBy") || isNull("txtModifiedBy") || isNull("txtFullname") || isNull("txtUserStatus") || isNull("txtModifiedOn") ) {
+        if (isNull("txtUsername") || isNull("txtPassword") || isNull("txtCreateBy") || isNull("txtModifiedBy") || isNull("txtFullname") || isNull("txtUserStatus") || isNull("txtModifiedOn")) {
             x.setAttribute("type", "button")
             alert("Cần điền đầy đủ các trường")
         } else {

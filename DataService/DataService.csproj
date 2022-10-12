@@ -8,12 +8,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{670DF997-4791-45A1-9418-80CFAFE55E03}</ProjectGuid>
+    <ProjectGuid>{37CD6019-DD3C-4835-8F58-F330E7826DFF}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FPTSView</RootNamespace>
-    <AssemblyName>FPTSView</AssemblyName>
+    <RootNamespace>DataService</RootNamespace>
+    <AssemblyName>DataService</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -45,15 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClosedXML, Version=0.96.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
-      <HintPath>..\packages\ClosedXML.0.96.0\lib\net46\ClosedXML.dll</HintPath>
-    </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
-    </Reference>
-    <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
-      <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -119,7 +110,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -130,9 +120,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\InvoiceController.cs" />
-    <Compile Include="Controllers\SendMailController.cs" />
-    <Compile Include="Controllers\SystemController.cs" />
+    <Compile Include="Controllers\Customer.cs" />
+    <Compile Include="Controllers\Invoice.cs" />
+    <Compile Include="Controllers\InvoiceLine.cs" />
+    <Compile Include="Controllers\InvoiceSetup.cs" />
+    <Compile Include="Controllers\SendMail.cs" />
+    <Compile Include="Controllers\Supplier.cs" />
+    <Compile Include="Controllers\User.cs" />
+    <Compile Include="Controllers\UserGroup.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -143,14 +138,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\css\invoice.css" />
-    <Content Include="Content\images\avata.png" />
-    <Content Include="Content\images\bin.svg" />
-    <Content Include="Content\images\edit.svg" />
-    <Content Include="Content\images\icon-appStore.png" />
-    <Content Include="Content\images\icon-EN.png" />
-    <Content Include="Content\images\icon-gooleplay.png" />
-    <Content Include="Content\images\logo_ngang.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -179,14 +166,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Invoice\Invoice.cshtml" />
-    <Content Include="Views\Invoice\InvoiceLine.cshtml" />
-    <Content Include="Views\Invoice\InvoiceSetup.cshtml" />
-    <Content Include="Views\SendMail\SendMail.cshtml" />
-    <Content Include="Views\System\Customer.cshtml" />
-    <Content Include="Views\System\Index.cshtml" />
-    <Content Include="Views\System\Supplier.cshtml" />
-    <Content Include="Views\System\UserGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -205,12 +184,6 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FPTS API\FPTS API.csproj">
-      <Project>{34CA704A-7158-480D-9C5F-F77F60A93C88}</Project>
-      <Name>FPTS API</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -227,9 +200,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52674</DevelopmentServerPort>
+          <DevelopmentServerPort>53212</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52674/</IISUrl>
+          <IISUrl>http://localhost:53184/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

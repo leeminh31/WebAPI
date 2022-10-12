@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPTS API", "FPTS API\FPTS A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPTSView", "FPTSView\FPTSView.csproj", "{670DF997-4791-45A1-9418-80CFAFE55E03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebService", "WebService\WebService.csproj", "{88561524-4325-4084-8181-4F89863483F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataService", "DataService\DataService.csproj", "{37CD6019-DD3C-4835-8F58-F330E7826DFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{670DF997-4791-45A1-9418-80CFAFE55E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{670DF997-4791-45A1-9418-80CFAFE55E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{670DF997-4791-45A1-9418-80CFAFE55E03}.Release|Any CPU.Build.0 = Release|Any CPU
-		{88561524-4325-4084-8181-4F89863483F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88561524-4325-4084-8181-4F89863483F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88561524-4325-4084-8181-4F89863483F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88561524-4325-4084-8181-4F89863483F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37CD6019-DD3C-4835-8F58-F330E7826DFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37CD6019-DD3C-4835-8F58-F330E7826DFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37CD6019-DD3C-4835-8F58-F330E7826DFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37CD6019-DD3C-4835-8F58-F330E7826DFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

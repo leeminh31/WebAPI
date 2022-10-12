@@ -80,31 +80,50 @@
             </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < Model.Rows.Count; i++)
-            {
-                <tr>
-                    <td>@Model.Rows[i][0]</td>
-                    <td>@Model.Rows[i][1]</td>
-                    <td>@Model.Rows[i][2]</td>
-                    <td>@Model.Rows[i][3]</td>
-                    <td>@Model.Rows[i][4]</td>
-                    <td>@Model.Rows[i][5]</td>
-                    <td>
-                        <span onclick="handleUpdate(@i)">
-                            <img style="width:18px; height:18px"
-                                 src="~/Content/images/edit.svg" title="Edit user" />
-                        </span>
-                        <span onclick="handleDelete(@i)">
-                            <img style="width:18px; height:18px; margin-left: 4%;"
-                                 src="~/Content/images/bin.svg" title="Delete user" />
-                        </span>
-                    </td>
-                </tr>
-            }
+            
         </tbody>
     </table>
     <div class="data-paginate"></div>
 </div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            crossDomain: true,
+            url: "http://localhost:51061/api/InvoiceAPI/GetInvoiceLine",
+            datatype: "json",
+            success: (res) => {
+                console.log(res)
+                for (let i = 0; i < res.length; i++) {
+                    $(".table tbody").append(
+                        `<tr>
+                            <td>${res[i].ID}</td>
+                            <td>${res[i].InvoiceID}</td>
+                            <td>${res[i].ProductName}</td>
+                            <td>${res[i].Quantity}</td>
+                            <td>${res[i].Price}</td>
+                            <td>${res[i].CreateDate}</td>
+                            <td>
+                                <span onclick="handleUpdate()">
+                                    <img style="width:18px; height:18px"
+                                         src="~/Content/images/edit.svg" title="Edit user" />
+                                </span>
+                                <span onclick="handleDelete()">
+                                    <img style="width:18px; height:18px; margin-left: 4%;"
+                                         src="~/Content/images/bin.svg" title="Delete user" />
+                                </span>
+                            </td>
+                        </tr>`
+                    )
+                }
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    })
+</script>
 <script>
     const isNull = (id) => {
         if (document.getElementById(id).value.trim() === "") {
@@ -184,7 +203,7 @@
 
     const Update = () => {
         const x = document.getElementById("btn-update");
-        if (isNull("txtInvoiceLineID") || isNull("txtInvoiceID") || isNull("txtProductName") || isNull("txtQuantity") || isNull("txtPrice") || isNull("txtCreateDate") ) {
+        if (isNull("txtInvoiceLineID") || isNull("txtInvoiceID") || isNull("txtProductName") || isNull("txtQuantity") || isNull("txtPrice") || isNull("txtCreateDate")) {
             x.setAttribute("type", "button")
             alert("Cần điền đầy đủ các trường")
         } else {

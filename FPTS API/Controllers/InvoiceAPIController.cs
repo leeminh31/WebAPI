@@ -16,26 +16,11 @@ namespace FPTS_API.Controllers
     public class InvoiceAPIController : ApiController
     {
         string connection = System.Configuration.ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-        
-        // Hàm Lấy Dữ Liệu
-        public DataTable refresh(string name)
-        {
-            DataTable table = new DataTable();
-            using (SqlConnection cnn = new SqlConnection(connection))
-            {
-                cnn.Open();
-                string query = "select * from " + name;
-                SqlDataAdapter adapter = new SqlDataAdapter(query, cnn);
-                adapter.Fill(table);
-            }
-            return table;
-        }
-
         // Lấy Dữ Liệu Invoice
         [HttpGet]
         public List<Invoice> GetInvoice()
         {
-            DataTable table = refresh("tb_invoice");
+            DataTable table = DataService.Controllers.Invoice.GetAll(connection);
             List<Invoice> list = new List<Invoice>();
             for (int i = 0; i < table.Rows.Count; i++)
             {
@@ -51,11 +36,39 @@ namespace FPTS_API.Controllers
             return list;
         }
 
+        [HttpGet]
+        public void CreateInvoice(string create, string invoiceid, string customerid, string invoicesetupid, string supplierid, string startdate)
+        {
+            if (create == "Create")
+            {
+
+            }
+
+        //[HttpPost]
+        //public void PostInvoice( string create, string update, string search, string delete, string invoiceid, string customerid, string invoicesetupid, string supplierid, string startdate )
+        //{
+        //    if( create == "Create")
+        //    {
+        //    }
+        //    if (update == "Update")
+        //    {
+
+        //    }
+        //    if (search == "Search")
+        //    {
+
+        //    }
+        //    if (delete == "Delete")
+        //    {
+
+        //    }
+        //}
+
         //Lấy Dữ Liệu InvoiceLine
         [HttpGet]
         public List<InvoiceLine> GetInvoiceLine()
         {
-            DataTable table = refresh("tb_invoice_line");
+            DataTable table = DataService.Controllers.InvoiceLine.GetAll(connection);
             List<InvoiceLine> list = new List<InvoiceLine>();
             for (int i = 0; i < table.Rows.Count; i++)
             {
@@ -75,7 +88,7 @@ namespace FPTS_API.Controllers
         [HttpGet]
         public List<InvoiceSetup> GetInvoiceSetup()
         {
-            DataTable table = refresh("tb_invoice_setup");
+            DataTable table = DataService.Controllers.InvoiceSetup.GetAll(connection);
             List<InvoiceSetup> list = new List<InvoiceSetup>();
             for (int i = 0; i < table.Rows.Count; i++)
             {
