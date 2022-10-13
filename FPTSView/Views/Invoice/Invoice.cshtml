@@ -1,4 +1,4 @@
-﻿
+﻿@model List<FPTS_API.Models.Invoice>
 @{
     ViewBag.Title = "Invoice";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,7 +6,7 @@
 
 <div class="invoice-body">
     <h1>Khai báo thông tin hóa đơn</h1>
-    @Html.BeginForm("Invoie", "Invoice", FormMethod.Post)
+    @Html.BeginForm("Invoie", "Invoice", FormMethod.Post){ 
         <div class="form-invoice-info">
             <div class="form-invoice-input">
                 <label class="label-input" for="customerid">ID Người Dùng</label>
@@ -55,13 +55,13 @@
             <button class="btn-invoice" id="btn-search" name="search" value="Search" onclick="Search()">Tìm Kiếm</button>
             <button class="btn-invoice" id="btn-refresh" name="refresh" value="Refresh">Làm Mới</button>
         </div>
-    </form>
+    }
 </div>
 <div class="invoice-data-container">
     <table class="table">
         <thead>
             <tr>
-                <th>ID Người Dùng</th>
+                <th>ID Khách Hàng</th>
                 <th>ID Nhà Cung Cấp</th>
                 <th>ID Hóa Đơn</th>
                 <th>Code</th>
@@ -70,49 +70,21 @@
             </tr>
         </thead>
         <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr style="text-align:center">
+                    <td>@Html.DisplayTextFor(m => Model[i].CustomerId)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].SupplierId)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].InvoiceId)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].InvoiceCode)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].StartDate)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].InvoiceSetupId)</td>
+                </tr>
+            }
         </tbody>
     </table>
     <div class="data-paginate"></div>
 </div>
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            crossDomain: true,
-            url: "http://localhost:51061/api/InvoiceAPI/GetInvoice",
-            datatype: "json",
-            success: (res) => {
-                console.log(res)
-                for (let i = 0; i < res.length; i++) {
-                    $(".table tbody").append(
-                        `<tr>
-                            <td>${res[i].CustomerId}</td>
-                            <td>${res[i].SupplierId}</td>
-                            <td>${res[i].InvoiceId}</td>
-                            <td>${res[i].InvoiceCode}</td>
-                            <td>${res[i].StartDate}</td>
-                            <td>${res[i].InvoiceSetupId}</td>
-                            <td>
-                                <span onclick="handleUpdate()">
-                                    <img style="width:18px; height:18px"
-                                         src="~/Content/images/edit.svg" title="Edit user" />
-                                </span>
-                                <span onclick="handleDelete()">
-                                    <img style="width:18px; height:18px; margin-left: 4%;"
-                                         src="~/Content/images/bin.svg" title="Delete user" />
-                                </span>
-                            </td>
-                        </tr>`
-                    )
-                }
-            },
-            error: (err) => {
-                console.log(err)
-            }
-        })
-    })
-</script>
 <script>
     const isNull = (id) => {
         if (document.getElementById(id).value.trim() === "") {

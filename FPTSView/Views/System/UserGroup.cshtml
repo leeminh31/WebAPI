@@ -1,4 +1,4 @@
-﻿
+﻿@model List<FPTS_API.Models.UserGroup>
 @{
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -63,46 +63,20 @@
             </tr>
         </thead>
         <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr style="text-align:center">
+                    <td>@Html.DisplayTextFor(m => Model[i].Username)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].GroupCode)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].CreateBy)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].CreateDate)</td>
+                </tr>
+            }
+            }
         </tbody>
     </table>
     <div class="data-paginate"></div>
 </div>
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:51061/api/SystemAPI/GetUserGroup",
-            datatype: "json",
-            success: (res) => {
-                console.log(res)
-                for (let i = 0; i < res.length; i++) {
-                    $(".table tbody").append(
-                        `<tr>
-                            <td>${res[i].Username}</td>
-                            <td>${res[i].GroupCode}</td>
-                            <td>${res[i].CreateBy}</td>
-                            <td>${res[i].CreateDate}</td>
-                            <td>
-                                <span onclick="handleUpdate()">
-                                    <img style="width:18px; height:18px"
-                                         src="~/Content/images/edit.svg" title="Edit user" />
-                                </span>
-                                <span onclick="handleDelete()">
-                                    <img style="width:18px; height:18px; margin-left: 4%;"
-                                         src="~/Content/images/bin.svg" title="Delete user" />
-                                </span>
-                            </td>
-                        </tr>`
-                    )
-                }
-            },
-            error: (err) => {
-                console.log(err)
-            }
-        })
-    })
-</script>
 <script>
     const isNull = (id) => {
         if (document.getElementById(id).value.trim() === "") {

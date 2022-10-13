@@ -1,4 +1,4 @@
-﻿
+﻿@model List<FPTS_API.Models.SendMail>
 @{
     ViewBag.Title = "SendMail";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -79,16 +79,32 @@
     {
         <table class="table">
             <thead>
-            <th>Code</th>
-            <th>Tên Khách Hàng</th>
-            <th>Email</th>
-            <th>Địa Chỉ Khách Hàng</th>
-            <th>Tên Sản Phẩm</th>
-            <th>Số Lượng</th>
-            <th>Giá Tiền</th>
-            <th>Check List</th>
+                <tr>
+                    <th>Code</th>
+                    <th>Tên Khách Hàng</th>
+                    <th>Email</th>
+                    <th>Địa Chỉ Khách Hàng</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Số Lượng</th>
+                    <th>Giá Tiền</th>
+                    <th>Check List</th>
+                </tr>              
             </thead>
             <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr style="text-align:center">
+                        <td>@Html.DisplayTextFor(m => Model[i].InvoiceCode)</td>
+                        <td>@Html.DisplayTextFor(m => Model[i].Fullname)</td>
+                        <td>@Html.DisplayTextFor(m => Model[i].Email)</td>
+                        <td>@Html.Hidden("emailvalue"+i, Model[i].Email)</td>
+                        <td>@Html.DisplayTextFor(m => Model[i].CustomerAddress)</td>
+                        <td>@Html.DisplayTextFor(m => Model[i].ProductName)</td>
+                        <td>@Html.DisplayTextFor(m => Model[i].Quantity)</td>
+                        <td>@Html.DisplayTextFor(m => Model[i].Price)</td>
+                        <td>@Html.CheckBoxFor(m => Model[i].IsChecked)</td>
+                    </tr>
+                }
             </tbody>
         </table>
         <div class="col-md-offset-2 col-md-10">
@@ -96,44 +112,6 @@
         </div>
     }
 </div>
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:51061/api/SendMailAPI/GetEmail",
-            datatype: "json",
-            success: (res) => {
-                console.log(res)
-                for (let i = 0; i < res.length; i++) {
-                    $(".table tbody").append(
-                        `<tr>
-                            <td>${res[i].InvoiceCode}</td>
-                            <td>${res[i].CustomerAddress}</td>
-                            <td>${res[i].ProductName}</td>
-                            <td>${res[i].Quantity}</td>
-                            <td>${res[i].Price}</td>
-                            <td><input type= "checkbox" value = "${i}"/></td>
-                            <td>
-                                <span onclick="handleUpdate()">
-                                    <img style="width:18px; height:18px"
-                                         src="~/Content/images/edit.svg" title="Edit user" />
-                                </span>
-                                <span onclick="handleDelete()">
-                                    <img style="width:18px; height:18px; margin-left: 4%;"
-                                         src="~/Content/images/bin.svg" title="Delete user" />
-                                </span>
-                            </td>
-                        </tr>`
-                    )
-                }
-            },
-            error: (err) => {
-                console.log(err)
-            }
-        })
-    })
-</script>
 <script>
     const isNull = (id) => {
         if (document.getElementById(id).value.trim() === "") {

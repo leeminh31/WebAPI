@@ -87,7 +87,7 @@ namespace DataService.Controllers
             }
         }
 
-        public DataTable Search(string connectionString,string invoicesetupid)
+        public static DataTable Search(string connectionString,string invoicesetupid)
         {
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {

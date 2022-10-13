@@ -1,4 +1,4 @@
-﻿
+﻿@model List<FPTS_API.Models.Customer>
 @{
     ViewBag.Title = "Customer";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -75,48 +75,21 @@
             </tr>
         </thead>
         <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr style="text-align:center">
+                    <td>@Html.DisplayTextFor(m => Model[i].CustomerID)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].Fullname)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].Gender)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].BirthDate)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].CustomerAddress)</td>
+                    <td>@Html.DisplayTextFor(m => Model[i].Email)</td>
+                </tr>
+            }
         </tbody>
     </table>
     <div class="data-paginate"></div>
 </div>
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:51061/api/SystemAPI/GetCustomer",
-            datatype: "json",
-            success: (res) => {
-                console.log(res)
-                for (let i = 0; i < res.length; i++) {
-                    $(".table tbody").append(
-                        `<tr>
-                            <td>${res[i].CustomerID}</td>
-                            <td>${res[i].Fullname}</td>
-                            <td>${res[i].Gender}</td>
-                            <td>${res[i].BirthDate}</td>
-                            <td>${res[i].CustomerAddress}</td>
-                            <td>${res[i].Email}</td>
-                            <td>
-                                <span onclick="handleUpdate()">
-                                    <img style="width:18px; height:18px"
-                                         src="~/Content/images/edit.svg" title="Edit user" />
-                                </span>
-                                <span onclick="handleDelete()">
-                                    <img style="width:18px; height:18px; margin-left: 4%;"
-                                         src="~/Content/images/bin.svg" title="Delete user" />
-                                </span>
-                            </td>
-                        </tr>`
-                    )
-                }
-            },
-            error: (err) => {
-                console.log(err)
-            }
-        })
-    })
-</script>
 <script>
     const isNull = (id) => {
         if (document.getElementById(id).value.trim() === "") {

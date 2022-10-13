@@ -13,11 +13,9 @@ namespace FPTS_API.Controllers
 {
     public class SendMailAPIController : ApiController
     {
-        string connection = System.Configuration.ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-
         //Lấy Dữ Liệu Send Mail
         [HttpGet]
-        public List<SendMail> GetEmail ()
+        public static List<SendMail> GetEmail (string connection)
         {
             DataTable table = DataService.Controllers.SendMail.GetAll(connection);
             List<SendMail> list = new List<SendMail>();
@@ -34,6 +32,14 @@ namespace FPTS_API.Controllers
                 list.Add(mail);
             }
             return list;
+        }
+
+        public static void SearchSendMail(string connection, string search, string invoicecode, string fullname, string customeraddress, string email, string productname, string quantity, string price)
+        {
+            if (search == "Search")
+            {
+                DataService.Controllers.SendMail.Search(connection,invoicecode,fullname,customeraddress,email,productname,quantity,price);
+            }
         }
     }
 }

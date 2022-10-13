@@ -15,10 +15,9 @@ namespace FPTS_API.Controllers
 {
     public class InvoiceAPIController : ApiController
     {
-        string connection = System.Configuration.ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
         // Lấy Dữ Liệu Invoice
         [HttpGet]
-        public List<Invoice> GetInvoice()
+        public static List<Invoice> GetInvoice(string connection)
         {
             DataTable table = DataService.Controllers.Invoice.GetAll(connection);
             List<Invoice> list = new List<Invoice>();
@@ -36,14 +35,37 @@ namespace FPTS_API.Controllers
             return list;
         }
 
-        [HttpGet]
-        public void CreateInvoice(string create, string invoiceid, string customerid, string invoicesetupid, string supplierid, string startdate)
+        public static void CreateInvoice(string connection,string create, string invoiceid, string customerid, string invoicesetupid, string supplierid, string startdate)
         {
             if (create == "Create")
             {
-
+                DataService.Controllers.Invoice.Create(connection, invoiceid, customerid, supplierid, invoicesetupid, startdate);
             }
+        }
 
+        public static void UpdateInvoice(string connection,string update, string invoiceid, string customerid, string invoicesetupid, string supplierid, string startdate)
+        {
+            if (update == "Update")
+            {
+                DataService.Controllers.Invoice.Update(connection, customerid, supplierid, invoiceid, invoicesetupid, startdate);
+            }
+        }
+
+        public static void DeleteInvoice(string connection,string delete, string invoiceid)
+        {
+            if (delete == "Delete")
+            {
+                DataService.Controllers.Invoice.Delete(connection, invoiceid);
+            }
+        }
+
+        public static void SearchInvoice(string connection,string search, string invoiceid)
+        {
+            if (search == "Search")
+            {
+                DataService.Controllers.Invoice.Search(connection, invoiceid);
+            }
+        }
         //[HttpPost]
         //public void PostInvoice( string create, string update, string search, string delete, string invoiceid, string customerid, string invoicesetupid, string supplierid, string startdate )
         //{
@@ -66,7 +88,7 @@ namespace FPTS_API.Controllers
 
         //Lấy Dữ Liệu InvoiceLine
         [HttpGet]
-        public List<InvoiceLine> GetInvoiceLine()
+        public static List<InvoiceLine> GetInvoiceLine(string connection)
         {
             DataTable table = DataService.Controllers.InvoiceLine.GetAll(connection);
             List<InvoiceLine> list = new List<InvoiceLine>();
@@ -84,9 +106,41 @@ namespace FPTS_API.Controllers
             return list;
         }
 
+        public static void CreateInvoiceLine(string connection,string create, string invoicelineid, string productname, string invoiceid, string quantity, string createdate, string price)
+        {
+            if (create == "Create")
+            {
+                DataService.Controllers.InvoiceLine.Create(connection, invoicelineid, productname, invoiceid, quantity, createdate, price);
+            }
+        }
+
+        public static void UpdateInvoiceLine(string connection,string update, string invoicelineid, string productname, string invoiceid, string quantity, string createdate, string price)
+        {
+            if (update == "Update")
+            {
+                DataService.Controllers.InvoiceLine.Update(connection, invoicelineid, productname, invoiceid, quantity, createdate, price);
+            }
+        }
+
+        public static void DeleteInvoiceLine(string connection,string delete, string invoicelineid, string productname, string invoiceid, string quantity, string createdate, string price)
+        {
+            if (delete == "Delete")
+            {
+                DataService.Controllers.InvoiceLine.Delete(connection, invoicelineid);
+            }
+        }
+
+        public static void SearchInvoiceLine(string connection,string search, string invoicelineid, string productname, string invoiceid, string quantity, string createdate, string price)
+        {
+            if (search == "Search")
+            {
+                DataService.Controllers.InvoiceLine.Search(connection, invoicelineid);
+            }
+        }
+
         //Lấy Dữ Liệu InvoiceSetup
         [HttpGet]
-        public List<InvoiceSetup> GetInvoiceSetup()
+        public static List<InvoiceSetup> GetInvoiceSetup(string connection)
         {
             DataTable table = DataService.Controllers.InvoiceSetup.GetAll(connection);
             List<InvoiceSetup> list = new List<InvoiceSetup>();
@@ -103,6 +157,38 @@ namespace FPTS_API.Controllers
                 list.Add(invoice);
             }
             return list;
+        }
+
+        public static void CreateInvoiceSetup(string connection,string create, string invoicesetupid, string typename, string symbol, string startdate, string createby, string invoicestatus, string createdon)
+        {
+            if (create == "Create")
+            {
+                DataService.Controllers.InvoiceSetup.Create(connection, invoicesetupid,typename, symbol, startdate, createby, invoicestatus, createdon);
+            }
+        }
+
+        public static void UpdateInvoiceSetup(string connection,string update, string invoicesetupid, string typename, string symbol, string startdate, string createby, string invoicestatus, string createdon)
+        {
+            if (update == "Update")
+            {
+                DataService.Controllers.InvoiceSetup.Update(connection, invoicesetupid, typename, symbol, startdate, createby, invoicestatus, createdon);
+            }
+        }
+
+        public static void DeleteInvoiceSetup(string connection,string delete, string invoicesetupid, string typename, string symbol, string startdate, string createby, string invoicestatus, string createdon)
+        {
+            if (delete == "Delete")
+            {
+                DataService.Controllers.InvoiceSetup.Delete(connection, invoicesetupid);
+            }
+        }
+
+        public static void SearchInvoiceSetup(string connection,string search, string invoicesetupid)
+        {
+            if (search == "Search")
+            {
+                DataService.Controllers.InvoiceSetup.Search(connection, invoicesetupid);
+            }
         }
     }
 }

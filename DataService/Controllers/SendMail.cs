@@ -13,7 +13,7 @@ namespace DataService.Controllers
 {
     public class SendMail
     {
-        private DataTable Search(string connectionString, string invoicecode, string fullname, string customeraddress, string email, string productname, string quantity, string price)
+        public static DataTable Search(string connectionString, string invoicecode, string fullname, string customeraddress, string email, string productname, string quantity, string price)
         {
             string query = String.Format("select * from send_email where InvoiceCode = '{0}'", invoicecode);
             if (!String.IsNullOrEmpty(fullname))
@@ -46,6 +46,7 @@ namespace DataService.Controllers
             dataAdapter.Fill(dt);
             return dt;
         }
+
         //public bool handleSendMail(List<string> toEmail, string subject, string body)
         //{
         //    try

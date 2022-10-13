@@ -1,6 +1,9 @@
 ﻿using ClosedXML.Excel;
+using FPTS_API.Models;
+using FPTSView.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
@@ -8,14 +11,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace FPTS_API.Controllers
 {
     public class InvoiceController : Controller
     {
+        string connection = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
         // GET: Invoice
         public ActionResult Invoice()
         {
-            return View();
+            List<FPTS_API.Models.Invoice> invoices = FPTS_API.Controllers.InvoiceAPIController.GetInvoice(connection);
+            return View(invoices);
         }
 
         //[HttpPost]
@@ -67,12 +73,14 @@ namespace FPTS_API.Controllers
 
         public ActionResult InvoiceLine()
         {
-            return View();
+            List<FPTS_API.Models.InvoiceLine> invoices = FPTS_API.Controllers.InvoiceAPIController.GetInvoiceLine(connection);
+            return View(invoices);
         }
 
         public ActionResult InvoiceSetup()
         {
-            return View();
+            List<FPTS_API.Models.InvoiceSetup> invoices = FPTS_API.Controllers.InvoiceAPIController.GetInvoiceSetup(connection);
+            return View(invoices);
         }
     }
 }
