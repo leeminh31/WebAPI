@@ -98,7 +98,7 @@ namespace DataService.Controllers
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "sp_delete_user";
-                    cmd.Parameters.AddWithValue("@id", username);
+                    cmd.Parameters.AddWithValue("@username", username);
                     cnn.Open();
                     cmd.ExecuteNonQuery();
                     cnn.Close();

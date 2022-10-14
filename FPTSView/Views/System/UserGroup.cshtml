@@ -6,51 +6,50 @@
 
 <div class="invoice-body">
     <h1>Khai báo thông tin hóa đơn</h1>
-    @Html.BeginForm("UserGroup", "System", FormMethod.Post)
-    {
-    <div class="form-invoice-info">
-        <div class="form-invoice-input">
-            <label class="label-input" for="username">Tên Tài Khoản</label>
-            <input type="text"
-                   id="txtUsername"
-                   name="username"
-                   onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+    <form id="form_info" method="post">
+        <div class="form-invoice-info">
+            <div class="form-invoice-input">
+                <label class="label-input" for="username">Tên Tài Khoản</label>
+                <input type="text"
+                       id="txtUsername"
+                       name="username"
+                       onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="groupcode">Nhóm Người Dùng</label>
-            <input type="text"
-                   id="txtGroupCode"
-                   name="groupcode"
-                   onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="groupcode">Nhóm Người Dùng</label>
+                <input type="text"
+                       id="txtGroupCode"
+                       name="groupcode"
+                       onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="createby">Được Tảo Bởi</label>
-            <input type="text" id="txtCreateBy" name="createby" onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="createby">Được Tảo Bởi</label>
+                <input type="text" id="txtCreateBy" name="createby" onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="createdate">Ngày Tạo</label>
-            <input type="date"
-                   id="txtCreateDate"
-                   name="createdate"
-                   onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="createdate">Ngày Tạo</label>
+                <input type="date"
+                       id="txtCreateDate"
+                       name="createdate"
+                       onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
+            </div>
         </div>
-    </div>
-    <div class="form-invoice-btn">
-        <button class="btn-invoice" id="btn-create" name="create" value="Create" onclick="Create()">Thêm</button>
-        <button style="display:none" class="btn-invoice" id="btn-update" name="update" value="Update" onclick="Update()">Sửa</button>
-        <button style="display:none" class="btn-invoice" id="btn-delete" name="delete" value="Delete" onclick="Delete()">Xóa</button>
-        <button class="btn-invoice" id="btn-search" name="search" value="Search" onclick="Search()">Tìm Kiếm</button>
-        <button class="btn-invoice" id="btn-refresh" name="refresh" value="Refresh">Làm Mới</button>
-    </div>
-    }
+        <div class="form-invoice-btn">
+            <button class="btn-invoice" id="btn-create" onclick="Create()">Thêm</button>
+            <button style="display:none" class="btn-invoice" id="btn-update" onclick="Update()">Sửa</button>
+            <button style="display:none" class="btn-invoice" id="btn-delete" onclick="Delete()">Xóa</button>
+            <button class="btn-invoice" id="btn-search" onclick="Search()">Tìm Kiếm</button>
+            <button class="btn-invoice" id="btn-refresh" onclick="Refresh()">Làm Mới</button>
+        </div>
+        </form>
 </div>
 <div class="invoice-data-container">
     <table class="table">
@@ -70,6 +69,16 @@
                     <td>@Html.DisplayTextFor(m => Model[i].GroupCode)</td>
                     <td>@Html.DisplayTextFor(m => Model[i].CreateBy)</td>
                     <td>@Html.DisplayTextFor(m => Model[i].CreateDate)</td>
+                    <td>
+                        <span onclick="handleUpdate(@i)">
+                            <img style="width:18px; height:18px"
+                                 src="~/Content/images/edit.svg" title="Edit user" />
+                        </span>
+                        <span onclick="handleDelete(@i)">
+                            <img style="width:18px; height:18px; margin-left: 4%;"
+                                 src="~/Content/images/bin.svg" title="Delete user" />
+                        </span>
+                    </td>
                 </tr>
             }
             }
@@ -151,6 +160,7 @@
             y.parentElement.querySelector("span").innerText = ""
             z.parentElement.querySelector("span").innerText = ""
             x.setAttribute("type", "submit")
+            document.getElementById("form_info").setAttribute("action", "@Url.Action("DeleteUserGroup", "System")")
         }
     }
 
@@ -164,6 +174,7 @@
                 x.style.display = "none";
             }
             x.setAttribute("type", "submit")
+            document.getElementById("form_info").setAttribute("action", "@Url.Action("UpdateUserGroup", "System")")
         }
     }
 
@@ -174,6 +185,7 @@
             alert("Cần điền đầy đủ các trường")
         } else {
             x.setAttribute("type", "submit")
+            document.getElementById("form_info").setAttribute("action", "@Url.Action("CreateUserGroup", "System")")
         }
     }
 
@@ -181,6 +193,7 @@
         const x = document.getElementById("btn-search");
         const y = document.getElementById("txtUsername");
         const z = document.getElementById("txtGroupCode");
+        const a = document.getElementById("form_info")
         if (isNull("txtUsername")) {
             x.setAttribute("type", "button")
             y.focus()
@@ -193,8 +206,15 @@
             y.parentElement.querySelector("span").innerText = ""
             Z.parentElement.querySelector("span").innerText = ""
             x.setAttribute("type", "submit")
+            a.setAttribute("action", "@Url.Action("UserGroup", "System")")
         }
     }
+
+    const Refresh = () => {
+        document.getElementById("form_info").setAttribute("method", "GET")
+        document.getElementById("form_info").setAttribute("action", "@Url.Action("UserGroup", "System")")
+    }
+
 </script>
 
 

@@ -35,56 +35,37 @@ namespace FPTS_API.Controllers
             return list;
         }
 
-        public static void CreateInvoice(string connection,string create, string invoiceid, string customerid, string invoicesetupid, string supplierid, string startdate)
+        public static void CreateInvoice(string connection,string invoiceid, string customerid, string invoicesetupid, string supplierid, string startdate)
         {
-            if (create == "Create")
-            {
-                DataService.Controllers.Invoice.Create(connection, invoiceid, customerid, supplierid, invoicesetupid, startdate);
-            }
+            DataService.Controllers.Invoice.Create(connection, invoiceid, customerid, supplierid, invoicesetupid, startdate);
         }
 
-        public static void UpdateInvoice(string connection,string update, string invoiceid, string customerid, string invoicesetupid, string supplierid, string startdate)
+        public static void UpdateInvoice(string connection,string invoiceid, string customerid, string invoicesetupid, string supplierid, string startdate)
         {
-            if (update == "Update")
-            {
-                DataService.Controllers.Invoice.Update(connection, customerid, supplierid, invoiceid, invoicesetupid, startdate);
-            }
+            DataService.Controllers.Invoice.Update(connection, customerid, supplierid, invoiceid, invoicesetupid, startdate);
         }
 
-        public static void DeleteInvoice(string connection,string delete, string invoiceid)
+        public static void DeleteInvoice(string connection,string invoiceid)
         {
-            if (delete == "Delete")
-            {
-                DataService.Controllers.Invoice.Delete(connection, invoiceid);
-            }
+            DataService.Controllers.Invoice.Delete(connection, invoiceid);
         }
 
-        public static void SearchInvoice(string connection,string search, string invoiceid)
+        public static List<Invoice> SearchInvoice(string connection,string invoiceid)
         {
-            if (search == "Search")
+            DataTable table = DataService.Controllers.Invoice.Search(connection, invoiceid);
+            List<Invoice> list = new List<Invoice>();
+            foreach(DataRow row in table.Rows)
             {
-                DataService.Controllers.Invoice.Search(connection, invoiceid);
+                Invoice invoice = new Invoice();
+                invoice.CustomerId = Convert.ToInt32(row["CustomerID"].ToString());
+                invoice.InvoiceCode = row["InvoiceCode"].ToString();
+                invoice.InvoiceId = Convert.ToInt32(row["InvoiceID"].ToString());
+                invoice.InvoiceSetupId = Convert.ToInt32(row["InvoiceSetupID"].ToString());
+                invoice.SupplierId = Convert.ToInt32(row["SupplierID"].ToString());
+                list.Add(invoice);
             }
+            return list;
         }
-        //[HttpPost]
-        //public void PostInvoice( string create, string update, string search, string delete, string invoiceid, string customerid, string invoicesetupid, string supplierid, string startdate )
-        //{
-        //    if( create == "Create")
-        //    {
-        //    }
-        //    if (update == "Update")
-        //    {
-
-        //    }
-        //    if (search == "Search")
-        //    {
-
-        //    }
-        //    if (delete == "Delete")
-        //    {
-
-        //    }
-        //}
 
         //Lấy Dữ Liệu InvoiceLine
         [HttpGet]
@@ -106,36 +87,37 @@ namespace FPTS_API.Controllers
             return list;
         }
 
-        public static void CreateInvoiceLine(string connection,string create, string invoicelineid, string productname, string invoiceid, string quantity, string createdate, string price)
+        public static void CreateInvoiceLine(string connection,string invoicelineid, string productname, string invoiceid, string quantity, string createdate, string price)
         {
-            if (create == "Create")
-            {
-                DataService.Controllers.InvoiceLine.Create(connection, invoicelineid, productname, invoiceid, quantity, createdate, price);
-            }
+            DataService.Controllers.InvoiceLine.Create(connection, invoicelineid, productname, invoiceid, quantity, createdate, price);
         }
 
-        public static void UpdateInvoiceLine(string connection,string update, string invoicelineid, string productname, string invoiceid, string quantity, string createdate, string price)
+        public static void UpdateInvoiceLine(string connection, string invoicelineid, string productname, string invoiceid, string quantity, string createdate, string price)
         {
-            if (update == "Update")
-            {
-                DataService.Controllers.InvoiceLine.Update(connection, invoicelineid, productname, invoiceid, quantity, createdate, price);
-            }
+            DataService.Controllers.InvoiceLine.Update(connection, invoicelineid, productname, invoiceid, quantity, createdate, price);
         }
 
-        public static void DeleteInvoiceLine(string connection,string delete, string invoicelineid, string productname, string invoiceid, string quantity, string createdate, string price)
+        public static void DeleteInvoiceLine(string connection,string invoicelineid)
         {
-            if (delete == "Delete")
-            {
-                DataService.Controllers.InvoiceLine.Delete(connection, invoicelineid);
-            }
+            DataService.Controllers.InvoiceLine.Delete(connection, invoicelineid);
         }
 
-        public static void SearchInvoiceLine(string connection,string search, string invoicelineid, string productname, string invoiceid, string quantity, string createdate, string price)
+        public static List<InvoiceLine> SearchInvoiceLine(string connection,string invoicelineid)
         {
-            if (search == "Search")
+            List<InvoiceLine> list = new List<InvoiceLine>();
+            DataTable table = DataService.Controllers.InvoiceLine.Search(connection, invoicelineid);
+            foreach(DataRow row in table.Rows)
             {
-                DataService.Controllers.InvoiceLine.Search(connection, invoicelineid);
+                InvoiceLine line = new InvoiceLine();
+                line.InvoiceID = Convert.ToInt32(row["InvoiceID"].ToString());
+                line.CreateDate = Convert.ToDateTime(row["CreateDate"].ToString());
+                line.ID = Convert.ToInt32(row["ID"].ToString());
+                line.Price = Convert.ToInt32(row["Price"].ToString());
+                line.ProductName = row["ProductName"].ToString();
+                line.Quantity = Convert.ToInt32(row["Quantity"].ToString());
+                list.Add(line);
             }
+            return list;
         }
 
         //Lấy Dữ Liệu InvoiceSetup
@@ -159,36 +141,38 @@ namespace FPTS_API.Controllers
             return list;
         }
 
-        public static void CreateInvoiceSetup(string connection,string create, string invoicesetupid, string typename, string symbol, string startdate, string createby, string invoicestatus, string createdon)
+        public static void CreateInvoiceSetup(string connection,string invoicesetupid, string typename, string symbol, string startdate, string createby, string invoicestatus, string createdon)
         {
-            if (create == "Create")
-            {
-                DataService.Controllers.InvoiceSetup.Create(connection, invoicesetupid,typename, symbol, startdate, createby, invoicestatus, createdon);
-            }
+            DataService.Controllers.InvoiceSetup.Create(connection, invoicesetupid,typename, symbol, startdate, createby, invoicestatus, createdon);
         }
 
-        public static void UpdateInvoiceSetup(string connection,string update, string invoicesetupid, string typename, string symbol, string startdate, string createby, string invoicestatus, string createdon)
+        public static void UpdateInvoiceSetup(string connection,string invoicesetupid, string typename, string symbol, string startdate, string createby, string invoicestatus, string createdon)
         {
-            if (update == "Update")
-            {
-                DataService.Controllers.InvoiceSetup.Update(connection, invoicesetupid, typename, symbol, startdate, createby, invoicestatus, createdon);
-            }
+            DataService.Controllers.InvoiceSetup.Update(connection, invoicesetupid, typename, symbol, startdate, createby, invoicestatus, createdon);
         }
 
-        public static void DeleteInvoiceSetup(string connection,string delete, string invoicesetupid, string typename, string symbol, string startdate, string createby, string invoicestatus, string createdon)
+        public static void DeleteInvoiceSetup(string connection,string invoicesetupid)
         {
-            if (delete == "Delete")
-            {
-                DataService.Controllers.InvoiceSetup.Delete(connection, invoicesetupid);
-            }
+            DataService.Controllers.InvoiceSetup.Delete(connection, invoicesetupid);
         }
 
-        public static void SearchInvoiceSetup(string connection,string search, string invoicesetupid)
+        public static List<InvoiceSetup> SearchInvoiceSetup(string connection,string invoicesetupid)
         {
-            if (search == "Search")
+            DataTable table = DataService.Controllers.InvoiceSetup.Search(connection, invoicesetupid);
+            List<InvoiceSetup> list = new List<InvoiceSetup>();
+            foreach(DataRow row in table.Rows)
             {
-                DataService.Controllers.InvoiceSetup.Search(connection, invoicesetupid);
+                InvoiceSetup invoicesetup = new InvoiceSetup();
+                invoicesetup.InvoiceStatus = row["InvoiceStatus"].ToString();
+                invoicesetup.CreateBy = row["CreateBy"].ToString();
+                invoicesetup.StartDate = Convert.ToDateTime(row["StartDate"].ToString());
+                invoicesetup.CreateOn = Convert.ToDateTime(row["CreatedOn"].ToString());
+                invoicesetup.ID = Convert.ToInt32(row["ID"].ToString());
+                invoicesetup.Symbol = row["Symbol"].ToString();
+                invoicesetup.TypeName = row["TypeName"].ToString();
+                list.Add(invoicesetup);
             }
+            return list;
         }
     }
 }

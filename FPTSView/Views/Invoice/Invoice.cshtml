@@ -6,7 +6,7 @@
 
 <div class="invoice-body">
     <h1>Khai báo thông tin hóa đơn</h1>
-    @Html.BeginForm("Invoie", "Invoice", FormMethod.Post){ 
+    <form id="form_info" method="post">
         <div class="form-invoice-info">
             <div class="form-invoice-input">
                 <label class="label-input" for="customerid">ID Người Dùng</label>
@@ -48,14 +48,14 @@
             </div>
         </div>
         <div class="form-invoice-btn">
-            <button class="btn-invoice" id="btn-create" name="create" value="Create" onclick="Create()">Thêm</button>
-            <button class="btn-invoice" id="btn-export" name="export" value="Export">Xuất Excel</button>
-            <button style="display:none" class="btn-invoice" id="btn-update" name="update" value="Update" onclick="Update()">Sửa</button>
-            <button style="display:none" class="btn-invoice" id="btn-delete" name="delete" value="Delete" onclick="Delete()">Xóa</button>
-            <button class="btn-invoice" id="btn-search" name="search" value="Search" onclick="Search()">Tìm Kiếm</button>
-            <button class="btn-invoice" id="btn-refresh" name="refresh" value="Refresh">Làm Mới</button>
+            <button class="btn-invoice" id="btn-create"  onclick="Create()">Thêm</button>
+            <button class="btn-invoice" id="btn-export" >Xuất Excel</button>
+            <button style="display:none" class="btn-invoice" id="btn-update"  onclick="Update()">Sửa</button>
+            <button style="display:none" class="btn-invoice" id="btn-delete"  onclick="Delete()">Xóa</button>
+            <button class="btn-invoice" id="btn-search"  onclick="Search()">Tìm Kiếm</button>
+            <button class="btn-invoice" id="btn-refresh" onclick="Refresh()" >Làm Mới</button>
         </div>
-    }
+    </form>
 </div>
 <div class="invoice-data-container">
     <table class="table">
@@ -70,7 +70,8 @@
             </tr>
         </thead>
         <tbody>
-            @for (int i = 0; i < Model.Count; i++)
+    }
+           @for (int i = 0; i < Model.Count; i++)
             {
                 <tr style="text-align:center">
                     <td>@Html.DisplayTextFor(m => Model[i].CustomerId)</td>
@@ -79,6 +80,16 @@
                     <td>@Html.DisplayTextFor(m => Model[i].InvoiceCode)</td>
                     <td>@Html.DisplayTextFor(m => Model[i].StartDate)</td>
                     <td>@Html.DisplayTextFor(m => Model[i].InvoiceSetupId)</td>
+                    <td>
+                        <span onclick="handleUpdate(@i)">
+                            <img style="width:18px; height:18px"
+                                 src="~/Content/images/edit.svg" title="Edit user" />
+                        </span>
+                        <span onclick="handleDelete(@i)">
+                            <img style="width:18px; height:18px; margin-left: 4%;"
+                                 src="~/Content/images/bin.svg" title="Delete user" />
+                        </span>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -148,6 +159,7 @@
     const Delete = () => {
         const x = document.getElementById("btn-delete");
         const y = document.getElementById("txtInvoiceID");
+        const z = document.getElementById("form_info")
         if (isNull("txtInvoiceID")) {
             document.getElementById('btn-delete').setAttribute("type", "button")
             y.focus()
@@ -158,11 +170,13 @@
             }
             y.parentElement.querySelector("span").innerText = ""
             x.setAttribute("type", "submit")
+            z.setAttribute("action", "@Url.Action("DeleteInvoice", "Invoice")")
         }
     }
 
     const Update = () => {
         const x = document.getElementById("btn-update");
+        const y = document.getElementById("form_info")
         if (isNull("txtInvoiceID") || isNull("txtCustomerID") || isNull("txtSupplierID") || isNull("txtInvoiceSetupID") || isNull("txtStartDate")) {
             x.setAttribute("type", "button")
             alert("Cần điền đầy đủ các trường")
@@ -171,22 +185,26 @@
                 x.style.display = "none";
             }
             x.setAttribute("type", "submit")
+            y.setAttribute("action", "@Url.Action("UpdateInvoice", "Invoice")")
         }
     }
 
     const Create = () => {
-        const x = document.getElementById("btn-create");
+        const x = document.getElementById("btn-create")
+        const y = document.getElementById("form_info")
         if (isNull("txtInvoiceID") || isNull("txtCustomerID") || isNull("txtSupplierID") || isNull("txtInvoiceSetupID") || isNull("txtStartDate")) {
             x.setAttribute("type", "button")
             alert("Cần điền đầy đủ các trường")
         } else {
             x.setAttribute("type", "submit")
+            y.setAttribute("action", "@Url.Action("CreateInvoice", "Invoice")")
         }
     }
 
     const Search = () => {
         const x = document.getElementById("btn-search");
         const y = document.getElementById("txtInvoiceID");
+        const z = document.getElementById("form_info")
         if (isNull("txtInvoiceID")) {
             x.setAttribute("type", "button")
             y.focus()
@@ -194,9 +212,14 @@
         } else {
             y.parentElement.querySelector("span").innerText = ""
             x.setAttribute("type", "submit")
+            z.setAttribute("action", "@Url.Action("Invoice", "Invoice")")
         }
     }
 
+    const Refresh = () => {
+        document.getElementById("form_info").setAttribute("method", "GET")
+        document.getElementById("form_info").setAttribute("action", "@Url.Action("Invoice", "Invoice")")
+    }
 
 </script>
 

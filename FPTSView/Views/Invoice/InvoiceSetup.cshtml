@@ -6,72 +6,71 @@
 
 <div class="invoice-body">
     <h1>Khai báo thông tin dải hóa đơn</h1>
-    @Html.BeginForm("InvoiceSetup", "Invoice", FormMethod.Post)
-    {
-    <div class="form-invoice-info">
-        <div class="form-invoice-input">
-            <label class="label-input" for="invoicesetupid">ID Dải Hóa Đơn</label>
-            <input type="text"
-                   id="txtInvoiceSetupID"
-                   name="invoicesetupid"
-                   onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+    <form id="form_info" method="post">
+        <div class="form-invoice-info">
+            <div class="form-invoice-input">
+                <label class="label-input" for="invoicesetupid">ID Dải Hóa Đơn</label>
+                <input type="text"
+                       id="txtInvoiceSetupID"
+                       name="invoicesetupid"
+                       onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="typename">Loại Dải Hóa Đơn</label>
-            <input type="text"
-                   id="txtTypeName"
-                   name="typename"
-                   onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="typename">Loại Dải Hóa Đơn</label>
+                <input type="text"
+                       id="txtTypeName"
+                       name="typename"
+                       onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="symbol">Ký Hiệu</label>
-            <input type="text" id="txtSymbol" name="symbol" onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="symbol">Ký Hiệu</label>
+                <input type="text" id="txtSymbol" name="symbol" onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="startdate">Ngày Bắt Đầu</label>
-            <input type="date" id="txtStartDate" name="startdate" onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="startdate">Ngày Bắt Đầu</label>
+                <input type="date" id="txtStartDate" name="startdate" onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="createby">Được Tạo Bởi</label>
-            <input type="text"
-                   id="txtCreateBy"
-                   name="createby"
-                   onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="createby">Được Tạo Bởi</label>
+                <input type="text"
+                       id="txtCreateBy"
+                       name="createby"
+                       onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="invoicestatus">Trạng Thái</label>
-            <input type="text"
-                   id="txtInvoiceStatus"
-                   name="invoicestatus"
-                   onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="invoicestatus">Trạng Thái</label>
+                <input type="text"
+                       id="txtInvoiceStatus"
+                       name="invoicestatus"
+                       onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="createdon">Ngày Tạo</label>
-            <input type="date" id="txtCreatedOn" name="createdon" onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="createdon">Ngày Tạo</label>
+                <input type="date" id="txtCreatedOn" name="createdon" onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
+            </div>
         </div>
-    </div>
-    <div class="form-invoice-btn">
-        <button class="btn-invoice" id="btn-create" name="create" value="Create" onclick="Create()">Thêm</button>
-        <button style="display:none" class="btn-invoice" id="btn-update" name="update" value="Update" onclick="Update()">Sửa</button>
-        <button style="display:none" class="btn-invoice" id="btn-delete" name="delete" value="Delete" onclick="Delete()">Xóa</button>
-        <button class="btn-invoice" id="btn-search" name="search" value="Search" onclick="Search()">Tìm Kiếm</button>
-        <button class="btn-invoice" id="btn-refresh" name="refresh" value="Refresh">Làm Mới</button>
-    </div>
-    }
+        <div class="form-invoice-btn">
+            <button class="btn-invoice" id="btn-create" onclick="Create()">Thêm</button>
+            <button style="display:none" class="btn-invoice" id="btn-update" onclick="Update()">Sửa</button>
+            <button style="display:none" class="btn-invoice" id="btn-delete" onclick="Delete()">Xóa</button>
+            <button class="btn-invoice" id="btn-search" onclick="Search()">Tìm Kiếm</button>
+            <button class="btn-invoice" id="btn-refresh" onclick="Refresh()">Làm Mới</button>
+        </div>
+        </form>
 </div>
 <div class="invoice-data-container">
     <table class="table">
@@ -97,6 +96,16 @@
                     <td>@Html.DisplayTextFor(m => Model[i].CreateBy)</td>
                     <td>@Html.DisplayTextFor(m => Model[i].CreateOn)</td>
                     <td>@Html.DisplayTextFor(m => Model[i].InvoiceStatus)</td>
+                    <td>
+                        <span onclick="handleUpdate(@i)">
+                            <img style="width:18px; height:18px"
+                                 src="~/Content/images/edit.svg" title="Edit user" />
+                        </span>
+                        <span onclick="handleDelete(@i)">
+                            <img style="width:18px; height:18px; margin-left: 4%;"
+                                 src="~/Content/images/bin.svg" title="Delete user" />
+                        </span>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -195,6 +204,7 @@
             }
             y.parentElement.querySelector("span").innerText = ""
             x.setAttribute("type", "submit")
+            document.getElementById("form_info").setAttribute("action", "@Url.Action("DeleteUser", "System")")
         }
     }
 
@@ -208,6 +218,7 @@
                 x.style.display = "none";
             }
             x.setAttribute("type", "submit")
+            document.getElementById("form_info").setAttribute("action", "@Url.Action("UpdateUser", "System")")
         }
     }
 
@@ -218,6 +229,7 @@
             alert("Cần điền đầy đủ các trường")
         } else {
             x.setAttribute("type", "submit")
+            document.getElementById("form_info").setAttribute("action", "@Url.Action("CreateUser", "System")")
         }
     }
 
@@ -231,8 +243,15 @@
         } else {
             y.parentElement.querySelector("span").innerText = ""
             x.setAttribute("type", "submit")
+            document.getElementById("form_info").setAttribute("action", "@Url.Action("Index", "System")")
         }
     }
+
+    const Refresh = () => {
+        document.getElementById("form_info").setAttribute("method", "GET")
+        document.getElementById("form_info").setAttribute("action", "@Url.Action("Index", "System")")
+    }
+
 </script>
 
 

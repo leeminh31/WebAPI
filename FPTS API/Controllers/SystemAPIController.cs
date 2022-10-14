@@ -37,36 +37,40 @@ namespace FPTS_API.Controllers
             return list;
         }
 
-        public static void CreateUser(string connection,string create, string username, string password, string createby, string createon, string modifiedby, string modifiedon, string fullname, string email, string userstatus)
+        public static void CreateUser(string connection,string username, string password, string createby, string createon, string modifiedby, string modifiedon, string fullname, string email, string userstatus)
         {
-            if (create == "Create")
-            {
-                DataService.Controllers.User.Create(connection, username, password, createby, createon, modifiedby, modifiedon, fullname, email, userstatus);
-            }
+            DataService.Controllers.User.Create(connection, username, password, createby, createon, modifiedby, modifiedon, fullname, email, userstatus);
         }
 
-        public static void UpdateUser(string connection,string update, string username, string password, string createby, string createon, string modifiedby, string modifiedon, string fullname, string email, string userstatus)
+        public static void UpdateUser(string connection,string username, string password, string createby, string createon, string modifiedby, string modifiedon, string fullname, string email, string userstatus)
         {
-            if (update == "Update")
-            {
-                DataService.Controllers.User.Update(connection, username, password, createby, createon, modifiedby, modifiedon, fullname, email, userstatus);
-            }
+            DataService.Controllers.User.Update(connection, username, password, createby, createon, modifiedby, modifiedon, fullname, email, userstatus);
         }
 
-        public static void DeleteUser(string connection,string delete, string username)
+        public static void DeleteUser(string connection,string username)
         {
-            if (delete == "Delete")
-            {
-                DataService.Controllers.User.Delete(connection, username);
-            }
+            DataService.Controllers.User.Delete(connection, username);
         }
 
-        public static void SearchUser(string connection,string search, string username)
+        public static List<User> SearchUser(string connection,string username)
         {
-            if (search == "Search")
+            DataTable table = DataService.Controllers.User.Search(connection, username);
+            List<User> list = new List<User>();
+            foreach(DataRow row in table.Rows)
             {
-                DataService.Controllers.User.Search(connection, username);
+                User user = new User();
+                user.Username = row["Username"].ToString();
+                user.Email = row["Email"].ToString();
+                user.UserStatus = row["UserStatus"].ToString();
+                user.CreateOn = Convert.ToDateTime(row["CreateOn"].ToString());
+                user.CreateBy = row["CreateBy"].ToString();
+                user.Fullname = row["Fullname"].ToString();
+                user.Password = row["UserPassword"].ToString();
+                user.ModifiedBy = row["ModifiedBy"].ToString();
+                user.ModifiedOn = DateTime.Now;
+                list.Add(user);
             }
+            return list;
         }
 
         // Lấy Dữ Liệu UserGroup
@@ -87,36 +91,35 @@ namespace FPTS_API.Controllers
             return list;
         }
 
-        public static void CreateUserGroup(string connection,string create, string username, string groupcode, string createby, string createdate)
+        public static void CreateUserGroup(string connection,string username, string groupcode, string createby, string createdate)
         { 
-            if(create == "Create")
-            {
-                DataService.Controllers.UserGroup.Create(connection, username, groupcode, createby, createdate);
-            }
+            DataService.Controllers.UserGroup.Create(connection, username, groupcode, createby, createdate);
         }
 
-        public static void UpdateUserGroup(string connection, string update, string username, string groupcode, string createby, string createdate)
+        public static void UpdateUserGroup(string connection, string username, string groupcode, string createby, string createdate)
         {
-            if (update == "Update")
-            {
-                DataService.Controllers.UserGroup.Update(connection, username, groupcode, createby, createdate);
-            }
+            DataService.Controllers.UserGroup.Update(connection, username, groupcode, createby, createdate);
         }
 
-        public static void DeleteUserGroup(string connection, string delete, string username, string groupcode, string createby, string createdate)
+        public static void DeleteUserGroup(string connection, string username, string groupcode)
         {
-            if (delete == "Delete")
-            {
-                DataService.Controllers.UserGroup.Delete(connection, username, groupcode);
-            }
+            DataService.Controllers.UserGroup.Delete(connection, username, groupcode);
         }
 
-        public static void SearchUserGroup(string connection, string search, string username, string groupcode, string createby, string createdate)
+        public static List<UserGroup> SearchUserGroup(string connection, string username, string groupcode)
         {
-            if (search == "Search")
+            DataTable table = DataService.Controllers.UserGroup.Search(connection, username, groupcode);
+            List<UserGroup> list = new List<UserGroup>();
+            foreach(DataRow row in table.Rows)
             {
-                DataService.Controllers.UserGroup.Search(connection, username, groupcode);
+                UserGroup user = new UserGroup();
+                user.CreateBy = row["CreateBy"].ToString();
+                user.CreateDate = Convert.ToDateTime(row["CreateDate"].ToString());
+                user.Username = row["Username"].ToString();
+                user.GroupCode = row["GroupCode"].ToString();
+                list.Add(user);
             }
+            return list;
         }
 
         // Lấy Dữ Liệu Customer
@@ -139,36 +142,37 @@ namespace FPTS_API.Controllers
             return list;
         }
 
-        public static void CreateCustomer(string connection, string create, string customerid, string fullname, string gender, string birthdate, string customeraddress, string email)
+        public static void CreateCustomer(string connection, string customerid, string fullname, string gender, string birthdate, string customeraddress, string email)
         {
-            if (create == "Create")
-            {
-                DataService.Controllers.Customer.Create(connection, customerid, fullname, gender, birthdate, customeraddress, email);
-            }
+            DataService.Controllers.Customer.Create(connection, customerid, fullname, gender, birthdate, customeraddress, email);
         }
 
-        public static void UpdateCustomer(string connection, string update, string customerid, string fullname, string gender, string birthdate, string customeraddress, string email)
+        public static void UpdateCustomer(string connection, string customerid, string fullname, string gender, string birthdate, string customeraddress, string email)
         {
-            if (update == "Update")
-            {
-                DataService.Controllers.Customer.Update(connection, customerid, fullname, gender, birthdate, customeraddress, email);
-            }
+            DataService.Controllers.Customer.Update(connection, customerid, fullname, gender, birthdate, customeraddress, email);
         }
 
-        public static void DeleteCustomer(string connection, string delete, string customerid)
+        public static void DeleteCustomer(string connection, string customerid)
         {
-            if (delete == "Delete")
-            {
-                DataService.Controllers.Customer.Delete(connection, customerid);
-            }
+            DataService.Controllers.Customer.Delete(connection, customerid);
         }
 
-        public static void SearchCustomer(string connection, string search, string customerid)
+        public static List<Customer> SearchCustomer(string connection, string customerid)
         {
-            if (search == "Search")
+            DataTable table = DataService.Controllers.Customer.Search(connection, customerid);
+            List<Customer> list = new List<Customer>();
+            foreach(DataRow row in table.Rows)
             {
-                DataService.Controllers.Customer.Search(connection, customerid);
+                Customer customer = new Customer();
+                customer.CustomerAddress = row["CustomerAddress"].ToString();
+                customer.Email = row["Email"].ToString();
+                customer.CustomerID = Convert.ToInt32(row["CustomerID"].ToString());
+                customer.Gender = row["Gender"].ToString();
+                customer.BirthDate = Convert.ToDateTime(row["BirthDate"].ToString());
+                customer.Fullname = row["Fullname"].ToString();
+                list.Add(customer);
             }
+            return list;
         }
 
         // Lấy Dữ Liệu Supplier
@@ -188,36 +192,34 @@ namespace FPTS_API.Controllers
             return list;
         }
 
-        public static void CreateSupplier(string connection, string create, string supplierid, string suppliername, string supplieraddress)
+        public static void CreateSupplier(string connection, string supplierid, string suppliername, string supplieraddress)
         {
-            if (create == "Create")
-            {
-                DataService.Controllers.Supplier.Create(connection, supplierid, suppliername, supplieraddress);
-            }
+            DataService.Controllers.Supplier.Create(connection, supplierid, suppliername, supplieraddress);
         }
 
-        public static void UpdateSupplier(string connection, string update, string create, string supplierid, string suppliername, string supplieraddress)
+        public static void UpdateSupplier(string connection, string supplierid, string suppliername, string supplieraddress)
         {
-            if (update == "Update")
-            {
-                DataService.Controllers.Supplier.Update(connection, supplierid, suppliername, supplieraddress);
-            }
+            DataService.Controllers.Supplier.Update(connection, supplierid, suppliername, supplieraddress);
         }
 
-        public static void SearchSupplier(string connection, string search, string supplierid, string suppliername, string supplieraddress)
+        public static List<Supplier> SearchSupplier(string connection, string supplierid)
         {
-            if (search == "Search")
+            DataTable table = DataService.Controllers.Supplier.Search(connection, supplierid);
+            List<Supplier> list = new List<Supplier>();
+            foreach(DataRow row in table.Rows)
             {
-                DataService.Controllers.Supplier.Search(connection, supplierid);
+                Supplier supplier = new Supplier();
+                supplier.SupplierAddress = row["SupplierAddress"].ToString();
+                supplier.SupplierID = Convert.ToInt32(row["SupplierID"].ToString());
+                supplier.SupplierName = row["SupplierName"].ToString();
+                list.Add(supplier);
             }
+            return list;
         }
 
-        public static void DeleteSupplier(string connection, string delete, string supplierid, string suppliername, string supplieraddress)
+        public static void DeleteSupplier(string connection, string supplierid)
         {
-            if (delete == "Delete")
-            {
-                DataService.Controllers.Supplier.Delete(connection, supplierid);
-            }
+            DataService.Controllers.Supplier.Delete(connection, supplierid);
         }
     }
 }

@@ -6,66 +6,65 @@
 
 <div class="invoice-body">
     <h1>Khai báo thông tin chi tiết hóa đơn</h1>
-    @Html.BeginForm("InvoiceLine", "Invoice", FormMethod.Post)
-    {
-    <div class="form-invoice-info">
-        <div class="form-invoice-input">
-            <label class="label-input" for="invoicelineid">ID Chi Tiết Hóa Đơn</label>
-            <input type="text"
-                   id="txtInvoiceLineID"
-                   name="invoicelineid"
-                   onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+    <form id="form_info" method="post">
+        <div class="form-invoice-info">
+            <div class="form-invoice-input">
+                <label class="label-input" for="invoicelineid">ID Chi Tiết Hóa Đơn</label>
+                <input type="text"
+                       id="txtInvoiceLineID"
+                       name="invoicelineid"
+                       onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="invoiceid">ID Hóa Đơn</label>
-            <input type="text"
-                   id="txtInvoiceID"
-                   name="invoiceid"
-                   onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="invoiceid">ID Hóa Đơn</label>
+                <input type="text"
+                       id="txtInvoiceID"
+                       name="invoiceid"
+                       onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="productname">Tên Sản Phẩm</label>
-            <input type="text" id="txtProductName" name="productname" onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="productname">Tên Sản Phẩm</label>
+                <input type="text" id="txtProductName" name="productname" onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="quantity">Số Lượng</label>
-            <input type="text"
-                   id="txtQuantity"
-                   name="quantity"
-                   onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="quantity">Số Lượng</label>
+                <input type="text"
+                       id="txtQuantity"
+                       name="quantity"
+                       onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="price">Giá Tiền</label>
-            <input type="text"
-                   id="txtPrice"
-                   name="price"
-                   onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="price">Giá Tiền</label>
+                <input type="text"
+                       id="txtPrice"
+                       name="price"
+                       onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
-        </div>
-        <div class="form-invoice-input">
-            <label class="label-input" for="createon">Ngày Tạo</label>
-            <input type="date" id="txtCreateDate" name="createdate" onblur="handleError(this.id)" />
-            <span style="color: red; display: block"></span>
+            </div>
+            <div class="form-invoice-input">
+                <label class="label-input" for="createon">Ngày Tạo</label>
+                <input type="date" id="txtCreateDate" name="createdate" onblur="handleError(this.id)" />
+                <span style="color: red; display: block"></span>
 
+            </div>
         </div>
-    </div>
-    <div class="form-invoice-btn">
-        <button class="btn-invoice" id="btn-create" name="create" value="Create" onclick="Create()">Thêm</button>
-        <button style="display:none" class="btn-invoice" id="btn-update" name="update" value="Update" onclick="Update()">Sửa</button>
-        <button style="display:none" class="btn-invoice" id="btn-delete" name="delete" value="Delete" onclick="Delete()">Xóa</button>
-        <button class="btn-invoice" id="btn-search" name="search" value="Search" onclick="Search()">Tìm Kiếm</button>
-        <button class="btn-invoice" id="btn-refresh" name="refresh" value="Refresh">Làm Mới</button>
-    </div>
-    }
+        <div class="form-invoice-btn">
+            <button class="btn-invoice" id="btn-create" onclick="Create()">Thêm</button>
+            <button style="display:none" class="btn-invoice" id="btn-update" onclick="Update()">Sửa</button>
+            <button style="display:none" class="btn-invoice" id="btn-delete" onclick="Delete()">Xóa</button>
+            <button class="btn-invoice" id="btn-search" onclick="Search()">Tìm Kiếm</button>
+            <button class="btn-invoice" id="btn-refresh" onclick="Refresh()">Làm Mới</button>
+        </div>
+        </form>
 </div>
 <div class="invoice-data-container">
     <table class="table">
@@ -89,6 +88,16 @@
                     <td>@Html.DisplayTextFor(m => Model[i].Quantity)</td>
                     <td>@Html.DisplayTextFor(m => Model[i].Price)</td>
                     <td>@Html.DisplayTextFor(m => Model[i].CreateDate)</td>
+                    <td>
+                        <span onclick="handleUpdate(@i)">
+                            <img style="width:18px; height:18px"
+                                 src="~/Content/images/edit.svg" title="Edit user" />
+                        </span>
+                        <span onclick="handleDelete(@i)">
+                            <img style="width:18px; height:18px; margin-left: 4%;"
+                                 src="~/Content/images/bin.svg" title="Delete user" />
+                        </span>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -159,6 +168,7 @@
     const Delete = () => {
         const x = document.getElementById("btn-delete");
         const y = document.getElementById("txtInvoiceLineID");
+        const z = document.getElementById("form_info")
         if (isNull("txtInvoiceLineID")) {
             document.getElementById('btn-delete').setAttribute("type", "button")
             y.focus()
@@ -169,11 +179,13 @@
             }
             y.parentElement.querySelector("span").innerText = ""
             x.setAttribute("type", "submit")
+            z.setAttribute("action", "@Url.Action("DeleteInvoiceLine", "Invoice")")
         }
     }
 
     const Update = () => {
         const x = document.getElementById("btn-update");
+        const y = document.getElementById("form_info")
         if (isNull("txtInvoiceLineID") || isNull("txtInvoiceID") || isNull("txtProductName") || isNull("txtQuantity") || isNull("txtPrice") || isNull("txtCreateDate")) {
             x.setAttribute("type", "button")
             alert("Cần điền đầy đủ các trường")
@@ -182,22 +194,26 @@
                 x.style.display = "none";
             }
             x.setAttribute("type", "submit")
+            y.setAttribute("action", "@Url.Action("UpdateInvoiceLine", "Invoice")")
         }
     }
 
     const Create = () => {
         const x = document.getElementById("btn-create");
+        const y = document.getElementById("form_info")
         if (isNull("txtInvoiceLineID") || isNull("txtInvoiceID") || isNull("txtProductName") || isNull("txtQuantity") || isNull("txtPrice") || isNull("txtCreateDate")) {
             x.setAttribute("type", "button")
             alert("Cần điền đầy đủ các trường")
         } else {
             x.setAttribute("type", "submit")
+            y.setAttribute("action", "@Url.Action("CreateInvoiceLine", "Invoice")")
         }
     }
 
     const Search = () => {
         const x = document.getElementById("btn-search");
         const y = document.getElementById("txtInvoiceLineID");
+        const z = document.getElementById("forn_info")
         if (isNull("txtInvoiceLineID")) {
             x.setAttribute("type", "button")
             y.focus()
@@ -205,8 +221,15 @@
         } else {
             y.parentElement.querySelector("span").innerText = ""
             x.setAttribute("type", "submit")
+            z.setAttribute("action", "@Url.Action("InvoiceLine", "Invoice")")
         }
     }
+
+    const Refresh = () => {
+        document.getElementById("form_info").setAttribute("method", "GET")
+        document.getElementById("form_info").setAttribute("action", "@Url.Action("InvoiceLine", "Invoice")")
+    }
+
 </script>
 
 

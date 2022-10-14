@@ -16,5 +16,13 @@ namespace FPTS_API.Controllers
             List<FPTS_API.Models.SendMail> emails = FPTS_API.Controllers.SendMailAPIController.GetEmail(connection);
             return View(emails);
         }
+
+        [HttpPost]
+        public ActionResult SearchMail(string invoicecode, string fullname, string customeraddress, string email, string productname, string quantity, string price)
+        {
+            List<FPTS_API.Models.SendMail> emails = new List<FPTS_API.Models.SendMail>();
+            emails = FPTS_API.Controllers.SendMailAPIController.SearchSendMail(connection,invoicecode, fullname, customeraddress, email, productname, quantity, price);
+            return View(emails);
+        }
     }
 }
