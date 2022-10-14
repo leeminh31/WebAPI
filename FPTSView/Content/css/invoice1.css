@@ -79,7 +79,7 @@ ul {
 
 form {
     background-color: #fff;
-    width: 1380px;
+    width: 1140px;
     margin: auto;
 }
 
@@ -105,13 +105,13 @@ form {
 
 .form-invoice-btn {
     display: flex;
-    width: 1380px;
+    width: 1140px;
     margin: auto;
     justify-content: center;
 }
 
     .form-invoice-btn button {
-        width: 14%;
+        width: 18%;
         height: 30px;
         border-radius: 5px;
         border-style: none;
