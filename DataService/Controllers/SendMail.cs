@@ -47,39 +47,36 @@ namespace DataService.Controllers
             return dt;
         }
 
-        //public bool handleSendMail(List<string> toEmail, string subject, string body)
-        //{
-        //    try
-        //    {
-        //        string email = System.Configuration.ConfigurationManager.AppSettings["SenderEmail"].ToString();
-        //        string password = System.Configuration.ConfigurationManager.AppSettings["SenderPassword"].ToString();
+        public static bool SendMailList(List<string> toEmail, string subject, string body, string email, string password)
+        {
+            try
+            {
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                smtpClient.EnableSsl = true;
+                smtpClient.Timeout = 100000;
+                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = new NetworkCredential(email, password);
 
-        //        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
-        //        smtpClient.EnableSsl = true;
-        //        smtpClient.Timeout = 100000;
-        //        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-        //        smtpClient.UseDefaultCredentials = false;
-        //        smtpClient.Credentials = new NetworkCredential(email, password);
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(email);
+                mail.Subject = subject;
+                mail.Body = body;
+                mail.IsBodyHtml = true;
+                mail.BodyEncoding = UTF8Encoding.UTF8;
 
-        //        MailMessage mail = new MailMessage();
-        //        mail.From = new MailAddress(email);
-        //        mail.Subject = subject;
-        //        mail.Body = body;
-        //        mail.IsBodyHtml = true;
-        //        mail.BodyEncoding = UTF8Encoding.UTF8;
-
-        //        foreach (string s in toEmail)
-        //        {
-        //            mail.To.Add(new MailAddress(s));
-        //        }
-        //        smtpClient.Send(mail);
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return false;
-        //    }
-        //}
+                foreach (string s in toEmail)
+                {
+                    mail.To.Add(new MailAddress(s));
+                }
+                smtpClient.Send(mail);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         public static DataTable  GetAll(string connectionString)
         {

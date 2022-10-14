@@ -17,7 +17,8 @@ namespace FPTS_API.Controllers
     public class InvoiceController : Controller
     {
         string connection = ConfigurationManager.ConnectionStrings["myConnectionString"].ConnectionString;
-        // GET: Invoice
+        
+        // CRUD Hóa Đơn 
         [HttpGet]
         public ActionResult Invoice()
         {
@@ -59,7 +60,13 @@ namespace FPTS_API.Controllers
         public void ExportInvoice(string export)
         {
                 DataTable table = new DataTable();
-                List<Invoice> invoices = FPTS_API.Controllers.InvoiceAPIController.GetInvoice(connection);
+                table.Columns.Add("InvoiceID"); 
+                table.Columns.Add("InvoiceSetupID"); 
+                table.Columns.Add("StartDate"); 
+                table.Columns.Add("SupplierID");
+                table.Columns.Add("InvoiceCode");
+                table.Columns.Add("Customer");
+            List<Invoice> invoices = FPTS_API.Controllers.InvoiceAPIController.GetInvoice(connection);
                 foreach(Invoice invoice in invoices)
                 {
                     DataRow row = table.NewRow();
@@ -90,6 +97,8 @@ namespace FPTS_API.Controllers
                 Response.End();
         }
 
+
+        // CRUD Chi Tiết Hóa Đơn
         public ActionResult InvoiceLine()
         {
             List<FPTS_API.Models.InvoiceLine> invoices = FPTS_API.Controllers.InvoiceAPIController.GetInvoiceLine(connection);
@@ -124,6 +133,8 @@ namespace FPTS_API.Controllers
             return Redirect(Url.Action("InvoiceLine", "Invoice"));
         }
 
+
+        // CRUD Dải Hóa Đơn
         public ActionResult InvoiceSetup()
         {
             List<FPTS_API.Models.InvoiceSetup> invoices = FPTS_API.Controllers.InvoiceAPIController.GetInvoiceSetup(connection);

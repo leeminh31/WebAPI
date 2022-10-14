@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Xml.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace FPTS_API.Controllers
 {
@@ -52,6 +53,11 @@ namespace FPTS_API.Controllers
                 list.Add(mail);
             } 
             return list;
+        }
+
+        public static void SendMail (List<string> toEmails, string subject, string body, string email, string password)
+        {
+            bool result = DataService.Controllers.SendMail.SendMailList(toEmails, subject, body, email, password);
         }
     }
 }

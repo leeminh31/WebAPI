@@ -49,7 +49,7 @@
         </div>
         <div class="form-invoice-btn">
             <button class="btn-invoice" id="btn-create"  onclick="Create()">Thêm</button>
-            <button class="btn-invoice" id="btn-export" >Xuất Excel</button>
+            <button class="btn-invoice" id="btn-export" onclick="Export()">Xuất Excel</button>
             <button style="display:none" class="btn-invoice" id="btn-update"  onclick="Update()">Sửa</button>
             <button style="display:none" class="btn-invoice" id="btn-delete"  onclick="Delete()">Xóa</button>
             <button class="btn-invoice" id="btn-search"  onclick="Search()">Tìm Kiếm</button>
@@ -219,6 +219,10 @@
     const Refresh = () => {
         document.getElementById("form_info").setAttribute("method", "GET")
         document.getElementById("form_info").setAttribute("action", "@Url.Action("Invoice", "Invoice")")
+    }
+
+    const Export = () => {
+        document.getElementById("form_info").setAttribute("action", "@Url.Action("ExportInvoice", "Invoice")")
     }
 
 </script>

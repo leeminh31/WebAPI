@@ -74,8 +74,7 @@
         </form>
 </div>
 <div class="invoice-data-container">
-    @using (Html.BeginForm("Index", "SendEmail", FormMethod.Post))
-    {
+    <form method="post" id="form_sendmail">
         <table class="table">
             <thead>
                 <tr>
@@ -87,7 +86,7 @@
                     <th>Số Lượng</th>
                     <th>Giá Tiền</th>
                     <th>Check List</th>
-                </tr>              
+                </tr>
             </thead>
             <tbody>
                 @for (int i = 0; i < Model.Count; i++)
@@ -96,7 +95,7 @@
                         <td>@Html.DisplayTextFor(m => Model[i].InvoiceCode)</td>
                         <td>@Html.DisplayTextFor(m => Model[i].Fullname)</td>
                         <td>@Html.DisplayTextFor(m => Model[i].Email)</td>
-                        <td>@Html.Hidden("emailvalue"+i, Model[i].Email)</td>
+                        <td>@Html.Hidden("emailvalue" + i, Model[i].Email)</td>
                         <td>@Html.DisplayTextFor(m => Model[i].CustomerAddress)</td>
                         <td>@Html.DisplayTextFor(m => Model[i].ProductName)</td>
                         <td>@Html.DisplayTextFor(m => Model[i].Quantity)</td>
@@ -107,9 +106,9 @@
             </tbody>
         </table>
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Send" class="btn btn-default" />
+            <input type="submit" onclick="SendMail()" value="Send" class="btn btn-default" />
         </div>
-    }
+    </form>
 </div>
 <script>
     const isNull = (id) => {
@@ -134,8 +133,13 @@
         } else {
             y.parentElement.querySelector("span").innerText = ""
             x.setAttribute("type", "submit")
-            document.getElementById("form_info").setAttribute("action", "@Url.Action("SearchSendMail", "SendMail")")
+            document.getElementById("form_info").setAttribute("action", "@Url.Action("SendMail", "SendMail")")
         }
+    }
+
+    const SendMail = () => {
+        alert("O Day")
+        document.getElementById("form_sendmail").setAttribute("action", "@Url.Action("SendMailForCheckList", "SendMail")")
     }
 
     const Refresh = () => {
